@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { Book } from './models/BookModel.js';
 import booksRoute from './routes/booksRoute.js';
 import cors from 'cors';
+
 const app = express();
 
 app.use(express.json());
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/books', booksRoute);
+
 
 mongoose
     .connect(mongoDBURL)

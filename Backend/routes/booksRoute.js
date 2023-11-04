@@ -30,7 +30,6 @@ router.post('/', async (req, res) => {  //http://localhost:5555/book bắt đầ
     }
 });
 
-
 //Get all Book
 router.get('/', async (req, res) => {  //http://localhost:5555/book bắt đầu test
     try {
@@ -48,20 +47,22 @@ router.get('/', async (req, res) => {  //http://localhost:5555/book bắt đầu
 });
 
 //get 1 book by id
-router.get('/:id', async (req, res) => {  //http://localhost:5555/book bắt đầu test
+router.get('/:id', async (req, res) => {
     try {
-
         const { id } = req.params;
+        const book = await Book.findById(id);
 
-        const book = await Book.find({});
+        if (!book) {
+            return res.status(404).json({ message: 'Book not found' });
+        }
 
         return res.status(200).json({ book });
-    }
-    catch (error) {
-        console.log(error.message)
+    } catch (error) {
+        console.log(error.message);
         res.status(500).send({ message: error.message });
     }
 });
+
 
 // update a book by id
 router.put('/:id', async (req, res) => {  //http://localhost:5555/book bắt đầu test
